@@ -1,0 +1,15 @@
+services:
+  postgres:
+    build: ./postgres-docker/
+    container_name: postgres
+    ports:
+      - "5432:5432"
+  discordbot:
+    build: .
+    container_name: discordbot
+    env_file:
+      - ./.env
+    environment:
+      DATABASE_URL: postgres://docker:docker@postgres:5432
+    depends_on:
+      - postgres
